@@ -15,6 +15,7 @@ public class Product {
     private Double price;
     private Integer quantity = 50;
 
-    @Column(length = 50000)
+    @Lob
+    @Column(columnDefinition = "CLOB")
     private String imageUrl;
 }
