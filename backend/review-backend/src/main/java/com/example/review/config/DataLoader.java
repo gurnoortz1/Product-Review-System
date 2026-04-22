@@ -64,13 +64,13 @@ public class DataLoader implements CommandLineRunner {
 
     private void loadProducts() throws Exception {
         // Read images from text files in src/main/resources
-        String img1 = loadImage("img1.txt");
-        String img2 = loadImage("img2.txt");
-        String img3 = loadImage("img3.txt");
-        String img4 = loadImage("img4.txt");
-        String img5 = loadImage("img5.txt");
-        String img6 = loadImage("img6.txt");
-        String img7 = loadImage("img7.txt");
+        String img1 = loadImage("img1");
+        String img2 = loadImage("img2");
+        String img3 = loadImage("img3");
+        String img4 = loadImage("img4");
+        String img5 = loadImage("img5");
+        String img6 = loadImage("img6");
+        String img7 = loadImage("img7");
 
         Product pBoxingRed = createProduct("Pro Boxing Gloves - Red", "Boxing", img1, 2499.00);
         Product pBoxingBlue = createProduct("Pro Boxing Gloves - Blue", "Boxing", img2, 2499.00);

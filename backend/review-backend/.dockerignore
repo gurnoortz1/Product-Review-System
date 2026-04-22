@@ -1,0 +1,9 @@
+/.git
+/.idea
+/.tmp
+/target
+/data
+/.gitignore
+/HELP.md
+/RENDER_DEPLOY.md
+*.log
