@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ShoppingCart, User, LogOut, HomeIcon, Plus, Trash2, Package, X, ChevronDown, MessageSquare, Send } from 'lucide-react';
 import './App.css';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'https://specific-sports-shop.onrender.com/api';
 
 const getAllowedProductIds = (username) => {
   if (!username) return [];
