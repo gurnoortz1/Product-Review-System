@@ -26,13 +26,13 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        createUserIfNotExists("admin@sportsshop.com", "Admin", "ADMIN");
+        createOrUpdateDemoUser("admin@sportsshop.com", "Admin", "ADMIN");
 
-        User u1 = createUserIfNotExists("gurnoor11@gmail.com", "Gurnoor", "USER");
-        User u2 = createUserIfNotExists("abhishek22@gmail.com", "Abhishek", "USER");
-        User u3 = createUserIfNotExists("gaurav33@gmail.com", "Gaurav", "USER");
-        User u4 = createUserIfNotExists("aditya44@gmail.com", "Aditya", "USER");
-        User u5 = createUserIfNotExists("amit55@gmail.com", "Amit", "USER");
+        User u1 = createOrUpdateDemoUser("gurnoor11@gmail.com", "Gurnoor", "USER");
+        User u2 = createOrUpdateDemoUser("abhishek22@gmail.com", "Abhishek", "USER");
+        User u3 = createOrUpdateDemoUser("gaurav33@gmail.com", "Gaurav", "USER");
+        User u4 = createOrUpdateDemoUser("aditya44@gmail.com", "Aditya", "USER");
+        User u5 = createOrUpdateDemoUser("amit55@gmail.com", "Amit", "USER");
 
         if (productRepository.count() == 0) {
             loadProducts();
@@ -46,20 +46,23 @@ public class DataLoader implements CommandLineRunner {
         createPurchase(u5.getId(), 6L);
     }
 
-    private User createUserIfNotExists(String email, String displayName, String role) {
-        if (!userRepository.findByUsername(email).isPresent()) {
-            User user = new User();
-            user.setUsername(email);
-            user.setPassword(passwordEncoder.encode("A12345"));
-            user.setRole(role);
-            user.setEnabled(true);
-            userRepository.save(user);
+    private User createOrUpdateDemoUser(String email, String displayName, String role) {
+        User user = userRepository.findByUsername(email).orElseGet(User::new);
+        boolean isNewUser = user.getId() == null;
+
+        user.setUsername(email);
+        user.setPassword(passwordEncoder.encode("A12345"));
+        user.setRole(role);
+        user.setEnabled(true);
+        userRepository.save(user);
+
+        if (isNewUser) {
             System.out.println("Created user: " + email);
-            return user;
         } else {
-            System.out.println("User already exists: " + email);
-            return userRepository.findByUsername(email).get();
+            System.out.println("Reset demo user credentials: " + email);
         }
+
+        return user;
     }
 
     private void loadProducts() throws Exception {
